@@ -1,6 +1,13 @@
 {
   "name": "my-die-ry",
   "version": "1.0.0",
+  "description": "group project-2",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {},
   "description": "2nd Group Project",
   "main": "app.js",
   "scripts": {
