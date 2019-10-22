@@ -2,5 +2,12 @@ extend layout
 
 block content
   include includes/containers
-    p hi
+    form(method=“POST” action=“/registerUser”)
+    .form-group
+        label(for=‘email’) Email
+        input#email.form-control(name=“email” type=‘text’ aria-describedby=‘emailHelp’ placeholder=‘Enter your email’)
+    .form-group
+        label(for=‘password’) Password
+        input#password.form-control(name=“password” type=‘password’ aria-describedby=‘emailHelp’ placeholder=‘Enter your password’)
+    button.btn.btn-primary Register
     include includes/footer
