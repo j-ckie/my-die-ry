@@ -2,7 +2,7 @@ const express = require("express");
 const port = process.env.PORT || 8080;
 const cors= require('cors');
 const bodyParser = require('body-parser');
-const Sequelize = require('sequelize'); // ok so you imported 'sequelize'. now you gotta tell it how to connect to the elephant thing ok
+const Sequelize = require('sequelize'); 
 const bcrypt = require('bcrypt');
 const models = require('./models');
 const app = express();
@@ -11,23 +11,19 @@ const json = require('./config/config.json');
 const devSequelize = new Sequelize(json.development.database, json.development.username, json.development.password, {
   host: json.development.host, //reference config file for settings
   dialect: json.development.dialect 
-}); //this is setting up teh connection to the database. gotta tell sequalize how to talk to it basically. so its pullin info from that config file for password, username, etc
+});
 //pulled directly from https://sequelize.org/v5/manual/getting-started.html#setting-up-a-connection 
 
+devSequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
-//test the connection. logs on connection or error ok okay, its working
-// devSequelize
-//   .authenticate()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch(err => {
-//     console.error('Unable to connect to the database:', err);
-//   });
-
-// console.log(devSequelize.tables);
-  //woudl using math.random work here or no...
-  //so this is under the database stuffs we just setup. looking through the manual here for what you can do with it okey
+console.log(devSequelize.tables);
   //https://sequelize.org/v5/manual/getting-started.html#setting-up-a-connection
   
 
