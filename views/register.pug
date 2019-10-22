@@ -2,12 +2,16 @@ extend layout
 
 block content
   include includes/containers
-    form(method=“POST” action=“/registerUser”)
-    .form-group
-        label(for=‘email’) Email
-        input#email.form-control(name=“email” type=‘text’ aria-describedby=‘emailHelp’ placeholder=‘Enter your email’)
-    .form-group
-        label(for=‘password’) Password
-        input#password.form-control(name=“password” type=‘password’ aria-describedby=‘emailHelp’ placeholder=‘Enter your password’)
-    button.btn.btn-primary Register
+    p To have some fun, register
+    form(method='POST' action='/registerUser')
+        .form-group
+        label(for='username') Name
+        input#username.form-control(name='username' type='text' aria-describedby='emailHelp' placeholder='Enter your name')
+        .form-group
+        label(for='email') Email
+        input#email.form-control(name='email' type='text' aria-describedby='emailHelp' placeholder='Enter your email')
+        .form-group
+        label(for='password') Password
+        input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
+        button.btn.btn-primary Register
     include includes/footer
