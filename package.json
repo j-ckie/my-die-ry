@@ -1,0 +1,29 @@
+{
+  "name": "my-die-ry",
+  "version": "1.0.0",
+  "description": "2nd Group Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-ckie/my-die-ry.git"
+  },
+  "author": "Jackie, Alina, Summer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j-ckie/my-die-ry/issues"
+  },
+  "homepage": "https://github.com/j-ckie/my-die-ry#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "pg": "^7.12.1",
+    "pug": "^2.0.4",
+    "sequelize": "^5.21.1"
+  }
+}
