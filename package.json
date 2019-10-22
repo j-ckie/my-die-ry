@@ -1,0 +1,24 @@
+{
+  "name": "my-die-ry",
+  "version": "1.0.0",
+  "description": "group project-2",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-ckie/my-die-ry.git"
+  },
+  "author": "Summer, Jackie, Alina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j-ckie/my-die-ry/issues"
+  },
+  "homepage": "https://github.com/j-ckie/my-die-ry#readme"
+}
