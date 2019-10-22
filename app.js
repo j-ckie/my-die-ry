@@ -8,10 +8,6 @@ const models = require('./models');
 const app = express();
 const json = require('./config/config.json');
 
-
-
-
-// Option 1: Passing parameters separately
 const devSequelize = new Sequelize(json.development.database, json.development.username, json.development.password, {
   host: json.development.host, //reference config file for settings
   dialect: json.development.dialect 
@@ -20,16 +16,16 @@ const devSequelize = new Sequelize(json.development.database, json.development.u
 
 
 //test the connection. logs on connection or error ok okay, its working
-devSequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+// devSequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
 
-console.log(devSequelize.tables);
+// console.log(devSequelize.tables);
   //woudl using math.random work here or no...
   //so this is under the database stuffs we just setup. looking through the manual here for what you can do with it okey
   //https://sequelize.org/v5/manual/getting-started.html#setting-up-a-connection
