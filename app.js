@@ -1,9 +1,15 @@
-const express = require("express")
+const express = require("express");
+const port = process.env.PORT || 8080;
+const cors= require('cors');
+const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt')
+const models = require('./models');
 const app = express();
-const port = 3000;
 
 app.set ("view engine", "pug");
 app.use(express.static("public"));
+
 app.get("/",(req,res)=>{
     res.render("index", {message: "Hey!"});
 });
@@ -13,13 +19,6 @@ app.get("/register", (req, res)=>{
 app.get("/login", (req, res)=>{
     res.render("login");
 });
-
-
-
-
-
-
-
 
 
 
