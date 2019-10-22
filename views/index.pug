@@ -8,20 +8,24 @@ head
   title My die-ry
   link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
   link(rel='stylesheet' href='/styles/index.css')
-  block head
+  link(rel='icon' href='images/favicon.ico' type='image/x-icon')
+  link(href='https://fonts.googleapis.com/css?family=Creepster&display=swap' rel='stylesheet')
+
+
 body 
   .container
    p
-    h1 My die-ry
+    img(src='/images/my-diery-logo.png' alt='My die-ry' )
+    
 
    p New here? Please, 
-   a(href= "/register").btn.btn-outline Register
+    a(href= "/register").btn.btn-outline Register
 
    p If you already have a die-ry with us, please 
-   a(href= "/login").btn.btn-outline Log in
-   block base
+    a(href= "/login").btn.btn-outline Log in
+   
    footer.row
-      .col.text-center @BLB
+      .col.text-center &copy; BLB
   
 
 
