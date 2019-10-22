@@ -1,14 +1,9 @@
-const express = require('express'),
-  app = express(),
-  cors = require('cors'),
-  bodyParser = require('body-parser'),
-  Sequelize = require('sequelize'),
-  bcrypt = require('bcrypt'),
-  // Op = Sequelize.Op,
-  models = require('./models'),
-  SALT_ROUNDS = 10,
-  PORT = process.env.PORT || 8080;
+// const death = models.Death.build({
+//   title: "Die It",
+//   description: "Desperate to lose weight you swallow tapeworm larvae. They eat everything you do, breed & eventually spread throughout your body ending on a buffet of your internal organs.",
+//   type: "Gluttony"
+// })
 
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({extended: false}))
-// app.set('view engine', 'pug')
+// death.save().then(function(newDeath){
+//   console.log(newDeath);
+// })
