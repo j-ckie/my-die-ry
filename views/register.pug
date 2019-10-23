@@ -12,6 +12,8 @@ block content
         input#email.form-control(required name='email' type='text' aria-describedby='emailHelp' placeholder='Enter your email')
         .form-group
         label(for='password') Password
-        input#password.form-control(required name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
-        button.btn.btn-primary Register
+
+        input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
+        button.btn.btn-danger Register
+
     include includes/footer

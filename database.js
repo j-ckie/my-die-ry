@@ -7,4 +7,5 @@
 // death.save().then(function(newDeath){
 //   console.log(newDeath);
 // })
+// function addDeath(title, dead, type)
 

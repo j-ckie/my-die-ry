@@ -1,0 +1,21 @@
+extend layout
+
+block content
+  include includes/containers
+    h2.text-center Add another way to 
+      h1.text-center DIE :)
+
+    form(method="POST" action="/addDeath")
+      .form-group
+        label(for='title') Title (of Death)
+        input#name.form-control(name="name" type='text' placeholder='Enter a gory death title')
+      .form-group
+        label(for='dead') Death Entry
+        input#dead.form-control(name="dead" type='text' placeholder='Describe the DEATH')
+        small.form-text.form-muted Make it graphic yet brief! (255 character limit)
+      .form-group
+        label(for="type") Manner of Death
+        select#type.form-control(name="type")
+          each type in types
+            option= type
+      button.btn.btn-danger(type='submit') Add DEATH

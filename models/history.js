@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     dateDied: DataTypes.DATEONLY
   }, {});
   History.associate = function(models) {
-    // associations can be defined here
+    // History.hasMany(models.Death, {
+    //   as: 'deaths',
+    //   foreignKey: 'deathId'
+    // })
   };
   return History;
 };
