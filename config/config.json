@@ -7,7 +7,7 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "qwqmoirjt",
+    "username": "qwqmoirj",
     "password": "2Lx0XF-rd3P2BZJ6BJH4-Co_CB34PesO",
     "database": "qwqmoirj",
     "host": "salt.db.elephantsql.com",

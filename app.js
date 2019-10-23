@@ -7,25 +7,105 @@ const bcrypt = require('bcrypt');
 const models = require('./models');
 const app = express();
 const json = require('./config/config.json');
+const op = Sequelize.Op;
+var count = 0;
 
 const devSequelize = new Sequelize(json.development.database, json.development.username, json.development.password, {
   host: json.development.host, //reference config file for settings
   dialect: json.development.dialect 
 });
+
+const testSequelize = new Sequelize(json.test.database, json.test.username, json.test.password, {
+  host: json.test.host,
+  dialect: json.test.dialect
+});
+
+const prodSequelize = new Sequelize(json.production.database, json.production.username, json.production.password, {
+  host: json.production.host,
+  dialect: json.production.dialect
+});
 //pulled directly from https://sequelize.org/v5/manual/getting-started.html#setting-up-a-connection 
 
-devSequelize
+testSequelize // tests the connection
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log(' testConnection has been established successfully.');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
 
-console.log(devSequelize.tables);
-  //https://sequelize.org/v5/manual/getting-started.html#setting-up-a-connection
-  
+devSequelize // tests the connection
+.authenticate()
+.then(() => {
+  console.log('devConnection has been established successfully.');
+})
+.catch(err => {
+  console.error('Unable to connect to the database:', err);
+});
+
+prodSequelize // tests the connection
+  .authenticate()
+  .then(() => {
+    console.log('prodConnection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+// const model = Sequelize.Model;
+
+const User = devSequelize.define('user', {
+  // attributes
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  email: {
+    type: Sequelize.STRING
+    // allowNull defaults to true
+  },
+  password: {
+    type: Sequelize.STRING
+  }
+}, {
+  // options
+  tableName: 'Users'
+
+});
+
+const Death = devSequelize.define('death', {
+  title: {
+    type: Sequelize.STRING,
+  },
+  description: {
+    type: Sequelize.STRING,
+  },
+  type: {
+    type: Sequelize.STRING,
+  }
+}, {
+  tableName: 'Deaths'
+});
+
+devSequelize.sync();
+
+Death.findAndCountAll({
+  where: {
+    id: {[op.gte]: 1} //OP means operation GTE is greater than equal to. see https://sequelize.org/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database
+  }
+}).then(result => {
+  count = result.count; // use this to determine table size
+  var randomDeathID = Math.floor(Math.random() * count) + 1;
+  console.log("##########LOOK HERE!!!! randomdeathid:",randomDeathID);
+
+  // notes: do another find thing with the randomDeathID
+});
+
+
+
+
+
 
 
 app.set ("view engine", "pug");
