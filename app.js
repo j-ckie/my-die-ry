@@ -9,8 +9,8 @@ const models = require('./models');
 const app = express();
 const json = require('./config/config.json');
 
-const op = Sequelize.Op;
-var count = 0;
+// const op = Sequelize.Op;
+// var count = 0;
 
 const SALT_ROUNDS = 10;
 
@@ -98,21 +98,36 @@ const Death = devSequelize.define('death', {
   tableName: 'Deaths'
 });
 
-devSequelize.sync();
+// function randomDeath() {
 
-Death.findAndCountAll({
-  where: {
-    id: {[op.gte]: 1} //OP means OPeration GTE is Greater Than Equal to. see https://sequelize.org/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database for explanation
-  }
-}).then(result => {
-  count = result.count; // use this to determine table size
-  var randomDeathID = Math.floor(Math.random() * count) + 1;
-  console.log("##########LOOK HERE!!!! randomdeathid:",randomDeathID);
-
-  // notes: do another find thing with the randomDeathID to spit out the death and death title
+// solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
+Death.findAll({ 
+  order: Sequelize.literal('rand()'),
+  limit: 1,
+  where: {title: 'Deaths'},
+  attributes: ['id', ['title', 'description']]
+}).then(encounters => {
+  console.log('########### THING HERE', encounters);
 });
 
 
+
+
+//   Death.findOne({ order: 'random()' }).then((encounter) => {
+//     console.log('#######THIS IS A THING', encounter);
+// });
+  // devSequelize.sync();
+  // Death.findAndCountAll({
+  //   where: {
+  //     id: {[op.gte]: 1} //OP means OPeration GTE is Greater Than Equal to. see https://sequelize.org/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database for explanation
+  //   }
+  // }).then(result => {
+  //   count = result.count; // use this to determine table size
+  //   var randomDeathID = Math.floor(Math.random() * count) + 1;
+  //   console.log("##########LOOK HERE!!!! randomdeathid:",randomDeathID);
+  //   // notes: do another find thing with the randomDeathID to spit out the death and death title
+  // });
+// }
 
 
 
@@ -170,3 +185,4 @@ app.post('/registerUser', (req,res) => {
 app.listen(port, ()=> {
     console.log(`port ${port} is running`);
 });
+
