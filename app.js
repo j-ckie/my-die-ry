@@ -16,8 +16,8 @@ const devSequelize = new Sequelize(json.development.database, json.development.u
   pool: {
     max: 1,
     min: 0,
-    acquire: 5000,
-    idle: 2000 // will close a connection if idle for 10 seconds ??
+    acquire: 15000,
+    idle: 5000 // will close a connection if idle for 2 seconds ??
   }
 });
 
