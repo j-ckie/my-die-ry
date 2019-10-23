@@ -101,11 +101,12 @@ const Death = devSequelize.define('death', {
 // function randomDeath() {
 
 // solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
+
 Death.findAll({ 
   order: Sequelize.literal('rand()'),
-  limit: 1,
-  where: {title: 'Deaths'},
-  attributes: ['id', ['title', 'description']]
+  limit: 1
+  // where: {title: 'Deaths'},
+  // attributes: ['id', ['title', 'description']]
 }).then(encounters => {
   console.log('########### THING HERE', encounters);
 });
