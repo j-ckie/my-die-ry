@@ -46,8 +46,10 @@ app.get("/login", (req, res)=>{
 });
 app.post("")
 
-
-
+// test to return first death
+// models.Death.findOne().then(function(death){
+//   console.log(death)
+// })
 
 
 app.listen(port, ()=> {
