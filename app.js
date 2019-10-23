@@ -3,14 +3,17 @@ const port = process.env.PORT || 8080;
 const cors= require('cors');
 const bodyParser = require('body-parser');
 const session = require("express-session");
-const Sequelize = require('sequelize'); 
+const Sequelize = require('sequelize'); // ok so you imported 'sequelize'. now you gotta tell it how to connect to the elephant thing ok
 const bcrypt = require('bcrypt');
 const models = require('./models');
 const app = express();
 const json = require('./config/config.json');
+
 const op = Sequelize.Op;
 var count = 0;
+
 const SALT_ROUNDS = 10;
+
 
 const devSequelize = new Sequelize(json.development.database, json.development.username, json.development.password, {
   host: json.development.host, //reference config file for settings
