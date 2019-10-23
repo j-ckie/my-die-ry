@@ -12,7 +12,13 @@ var count = 0;
 
 const devSequelize = new Sequelize(json.development.database, json.development.username, json.development.password, {
   host: json.development.host, //reference config file for settings
-  dialect: json.development.dialect 
+  dialect: json.development.dialect,
+  pool: {
+    max: 1,
+    min: 0,
+    acquire: 5000,
+    idle: 2000 // will close a connection if idle for 10 seconds ??
+  }
 });
 
 const testSequelize = new Sequelize(json.test.database, json.test.username, json.test.password, {
@@ -71,7 +77,6 @@ const User = devSequelize.define('user', {
 }, {
   // options
   tableName: 'Users'
-
 });
 
 const Death = devSequelize.define('death', {
