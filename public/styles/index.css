@@ -37,7 +37,9 @@ body {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  
+  background-image: url("/images/Ruled_Paper.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 5px 20px 20px 5px ;
 }
 
