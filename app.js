@@ -132,6 +132,7 @@ app.get("/register", (req, res)=>{
 app.get("/login", (req, res)=>{
     res.render("login");
 });
+
 app.use(
     session({
         secret:"Somehting secret",
@@ -164,6 +165,7 @@ app.post('/registerUser', (req,res) => {
         }
     })
 })
+
 
 
 
