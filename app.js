@@ -56,6 +56,36 @@ app.use(
     })
 );
 
+app.post('/loginUser', async(req,res)=>{
+    try{
+        let email = req.body.email
+        let dbUser = await models.User.findOne({
+            where: { 
+                email: email
+            }
+        });
+        console.log(dbUser)
+        console.log("PASSWORD OVER HERE: " + req.body.password)
+        console.log("DBUSER PASSWORD: " + dbUser.password)
+        if(!dbUser)throw new Error('Login failed');
+
+        bcrypt.compare(req.body.password, dbUser.password,(err, same)=>{
+            if(err) throw err;
+            if(!same) throw new Error('Incorrect password');
+            req.session.user = dbUser;
+            res.render("account");
+        });
+
+        
+    }catch(e){
+        res.send(e);
+    }
+ 
+});
+
+
+
+
 app.post('/registerUser', (req,res) => {
     console.log(req.body)
     models.User.findOne({
@@ -64,7 +94,8 @@ app.post('/registerUser', (req,res) => {
         }
     }).then((user) =>{
         if(user){
-            res.status(500).json({message: 'email already exists'})
+            // res.status(500).json({message: 'email already exists'})
+                res.render("login", {status:500, message: 'email already exists'})
         }   else {
             bcrypt.hash(req.body.password, SALT_ROUNDS, function(error, hash) {
                 if(error ==null) {
