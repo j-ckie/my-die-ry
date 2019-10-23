@@ -1,7 +1,6 @@
 extend layout
 
 block content
-<<<<<<< HEAD
     //- script.
     //-     if(#{status} == 500) {
     //-         alert(`#{message}`)
@@ -15,17 +14,5 @@ block content
             .form-group
             label(for='password') Password
             input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
-            button.btn.btn-primary Login
-=======
-  include includes/containers
-    h1 Log in and have fun
-    form(method='POST' action='/loginUser')
-        .form-group
-        label(for='email') Email
-        input#email.form-control(name='email' type='text' aria-describedby='emailHelp' placeholder='Enter your email')
-        .form-group
-        label(for='password') Password
-        input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
-        button.btn.btn-danger Login
->>>>>>> 4470af65ede485f98e06ee4929b5b90c233d5de2
+            button.btn.btn-danger Login
     include includes/footer  

@@ -151,14 +151,14 @@ app.post('/loginUser', async(req,res)=>{
         });
         console.log(dbUser)
         console.log("PASSWORD OVER HERE: " + req.body.password)
-        console.log("DBUSER PASSWORD: " + dbUser.password)
+        console.log("DBuSER PASSWORD: " + dbUser.password)
         if(!dbUser)throw new Error('Login failed');
 
         bcrypt.compare(req.body.password, dbUser.password,(err, same)=>{
             if(err) throw err;
             if(!same) throw new Error('Incorrect password');
             req.session.user = dbUser;
-            res.render("account");
+            res.redirect("/account");
         });
 
         
@@ -166,6 +166,14 @@ app.post('/loginUser', async(req,res)=>{
         res.send(e);
     }
  
+});
+app.get ("/account", (req,res)=>{
+let data = {};
+console.log("this is our account page! ###########################")
+// console.log(req.session)
+    // data.users = await models.User.findUsername();
+    console.log(req.session.user)
+    res.render("account", {data: req.session.user.username});
 });
 
 
