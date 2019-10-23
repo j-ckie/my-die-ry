@@ -26,7 +26,7 @@ body {
   height:95%;
   width: 35%;
   border: 3px solid brown;
-  background: linear-gradient(to bottom,  rgba(245, 238, 219, 0.87)10%, rgb(197, 194, 194) 90%);
+  background: linear-gradient(to bottom,  rgba(245, 223, 165, 0.87)10%, rgb(197, 194, 194) 90%);
  }
 
 .container-left{
