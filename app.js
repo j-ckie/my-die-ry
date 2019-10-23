@@ -2,13 +2,18 @@ const express = require("express");
 const port = process.env.PORT || 8080;
 const cors= require('cors');
 const bodyParser = require('body-parser');
-const Sequelize = require('sequelize'); 
+const session = require("express-session");
+const Sequelize = require('sequelize'); // ok so you imported 'sequelize'. now you gotta tell it how to connect to the elephant thing ok
 const bcrypt = require('bcrypt');
 const models = require('./models');
 const app = express();
 const json = require('./config/config.json');
+
 const op = Sequelize.Op;
 var count = 0;
+
+const SALT_ROUNDS = 10;
+
 
 const devSequelize = new Sequelize(json.development.database, json.development.username, json.development.password, {
   host: json.development.host, //reference config file for settings
@@ -115,6 +120,8 @@ Death.findAndCountAll({
 
 app.set ("view engine", "pug");
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json())
 
 app.get("/",(req,res)=>{
     res.render("index", {message: "Hey!"});
@@ -125,8 +132,38 @@ app.get("/register", (req, res)=>{
 app.get("/login", (req, res)=>{
     res.render("login");
 });
+app.use(
+    session({
+        secret:"Somehting secret",
+        resave: false,
+        saveUnitialized: true
+    })
+);
 
-
+app.post('/registerUser', (req,res) => {
+    console.log(req.body)
+    models.User.findOne({
+        where: { 
+            email: req.body.email
+        }
+    }).then((user) =>{
+        if(user){
+            res.status(500).json({message: 'email already exists'})
+        }   else {
+            bcrypt.hash(req.body.password, SALT_ROUNDS, function(error, hash) {
+                if(error ==null) {
+                    let user = models.User.build({
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: hash
+            })
+            user.save()
+            res.redirect('/login');
+            }
+        })
+        }
+    })
+})
 
 
 
