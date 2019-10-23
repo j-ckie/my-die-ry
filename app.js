@@ -113,11 +113,6 @@ Death.findAndCountAll({
 });
 
 
-
-
-
-
-
 app.set ("view engine", "pug");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -132,6 +127,40 @@ app.get("/register", (req, res)=>{
 app.get("/login", (req, res)=>{
     res.render("login");
 });
+
+app.get("/add", async (req, res) => {
+  let keys = []
+  let data = {};
+
+  //Retrieve all deaths from database
+  let deathData = await models.Death.findAll();
+
+  //Loop over returned data and put only types into keys
+  deathData.forEach (function(death) {
+    keys.push(death.type)
+  })
+
+  //Filter out duplicate keys
+  let filteredKeys = [...new Set(keys)]
+
+  //Set data to the filtered keys
+  data.types = filteredKeys;
+  console.log("DATA HERE: ")
+  console.log(data)
+
+  //Send data and render page with it
+  res.render("add", data);
+})
+
+// app.post('/addDeath', (req, res) => {
+//   let death = models.Death.build({
+//     title: req.body.title,
+//     dead: req.body.dead,
+//     type: req.body.type 
+//   })
+//   death.save()
+//   res.redirect('/login')
+// })
 
 app.use(
     session({
