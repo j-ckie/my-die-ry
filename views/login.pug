@@ -1,14 +1,18 @@
 extend layout
 
 block content
-  include includes/containers
-    h1 Log in and have fun
-    form(method='POST' action='/loginUser')
-        .form-group
-        label(for='email') Email
-        input#email.form-control(name='email' type='text' aria-describedby='emailHelp' placeholder='Enter your email')
-        .form-group
-        label(for='password') Password
-        input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
-        button.btn.btn-danger Login
+    //- script.
+    //-     if(#{status} == 500) {
+    //-         alert(`#{message}`)
+    //-     }
+    include includes/containers
+        h1 Log in and have fun
+        form(method='POST' action='/loginUser')
+            .form-group
+            label(for='email') Email
+            input#email.form-control(name='email' type='text' aria-describedby='emailHelp' placeholder='Enter your email')
+            .form-group
+            label(for='password') Password
+            input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
+            button.btn.btn-danger Login
     include includes/footer  
