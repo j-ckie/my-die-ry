@@ -74,11 +74,11 @@ app.post('/registerUser', (req,res) => {
                         password: hash
             })
             user.save()
+            res.redirect('/login');
             }
         })
         }
     })
-        res.redirect('/login');
 })
 
 
