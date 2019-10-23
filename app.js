@@ -134,33 +134,28 @@ app.get("/add", async (req, res) => {
 
   //Retrieve all deaths from database
   let deathData = await models.Death.findAll();
-
   //Loop over returned data and put only types into keys
   deathData.forEach (function(death) {
     keys.push(death.type)
   })
-
   //Filter out duplicate keys
   let filteredKeys = [...new Set(keys)]
-
   //Set data to the filtered keys
   data.types = filteredKeys;
-  console.log("DATA HERE: ")
-  console.log(data)
-
   //Send data and render page with it
   res.render("add", data);
 })
 
-// app.post('/addDeath', (req, res) => {
-//   let death = models.Death.build({
-//     title: req.body.title,
-//     dead: req.body.dead,
-//     type: req.body.type 
-//   })
-//   death.save()
-//   res.redirect('/login')
-// })
+app.post('/addDeath', (req, res) => {
+  models.Death.create({
+      title: req.body.title,
+      dead: req.body.dead,
+      type: req.body.type 
+  }).then(function(death) {
+      console.log('Death saved!')
+  })
+  res.redirect('/login') //dashboard?
+})
 
 app.use(
     session({
