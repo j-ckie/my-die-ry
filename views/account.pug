@@ -4,18 +4,20 @@ block content
   include includes/container-left
     h2 #{deathHist}
   include includes/container-right
-      p
-      h1 HELLO  #{data} 
-      
+    h1 HELLO  #{data} 
+    
 
-      h2 #{deathTitle}
-      p #{deathDesc}
-      h4 #{deathType}
+    h2 #{deathTitle}
+    p #{deathDesc}
+    h4 #{deathType}
 
-      form(method='POST' action='/randomDeath')
-        .form-group
-        label(for='deathGenerator') How do I die today?
-        button.btn.btn-danger Perish
+    form(method='POST' action='/randomDeath')
+      .form-group
+      label(for='deathGenerator')
+        h3 How will I die today??
+      button.btn.btn-danger Perish
 
-      p If you want to add something unique
-        a(href= "/add").btn.btn-danger Add Death
+    h3 If you want to add something unique press=>
+      a(href= "/add").btn.btn-danger Add Death
+    include includes/footer
+  

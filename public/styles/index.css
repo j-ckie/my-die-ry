@@ -17,11 +17,11 @@ body {
     background: linear-gradient(to bottom, rgb(240, 61, 91)5%, rgb(243, 110, 132)100%) ;
     width: 40%;
     height: 95%;
-    padding: 80px 50px;
+    padding: 5rem 3.125rem;
     border:  3px solid brown;
     border-radius: 5px 20px 20px 5px;
-    margin: 35px;
-    padding: 25 px;
+    margin: 2.2rem;
+    padding: 1.6rem;
     font-family: 'Creepster', cursive;
     color: rgb(54, 52, 52);
   }
@@ -34,9 +34,9 @@ body {
   width: 35%;
   border-bottom: 3px solid brown ;
   border-top:3px solid brown ;
-  margin: 35px, 0, 35px, 35px;
-  padding-top: 7%;
-  padding-bottom: 3%;
+  margin: 2.2rem, 0, 2.2rem, 2.2rem;
+  padding-top: 5rem;
+  padding-bottom: 4rem;
   font-family: 'Indie Flower', cursive;
   color: rgb(160, 25, 25);
 
@@ -50,7 +50,7 @@ body {
   border-radius: 20px 5px 5px 20px;
   background-position: right;
   border-left: 3px solid brown;
-  padding-right: 8%;
+  padding-right: 4rem;
   padding-left:5%;
   
   
@@ -87,6 +87,9 @@ body {
   position: left;
   width: 45%;
 }
-.button{
-  padding: 3rem;
+button{
+  margin: 1rem;
+}
+a{margin: 1rem;
+
 }
