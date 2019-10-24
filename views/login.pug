@@ -1,10 +1,6 @@
 extend layout
 
 block content
-    //- script.
-    //-     if(#{status} == 500) {
-    //-         alert(`#{message}`)
-    //-     }
     include includes/containers
         h1 Log in and have fun
         form(method='POST' action='/loginUser')
@@ -15,4 +11,4 @@ block content
             label(for='password') Password
             input#password.form-control(name='password' type='password' aria-describedby='emailHelp' placeholder='Enter your password')
             button.btn.btn-danger Login
-    include includes/footer  
+        include includes/footer  
