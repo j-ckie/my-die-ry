@@ -271,9 +271,7 @@ app.post('/randomDeath', (req,res) => {
       })
       .then((user) =>{
         if(user){
-
-          
-
+          var userDeath = [];
           var str = "15,12,44,53"; // example test "deathHistory" until column is there
 
           //var str = user.get("deathHistory"); //USE THIS DUMDUM
@@ -298,11 +296,8 @@ app.post('/randomDeath', (req,res) => {
     
   });
   
-
   
 })
-
-
 
 app.listen(port, ()=> {
     console.log(`port ${port} is running`);
