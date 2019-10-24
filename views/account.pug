@@ -1,16 +1,21 @@
 extend layout
 
 block content
-  include includes/containers
-    p
-    h1 HELLO  #{data} 
-    button.btn.btn-danger(type='submit') Add DEATH
+  include includes/container-left
+    h2 #{deathHist}
+  include includes/container-right
+      p
+      h1 HELLO  #{data} 
+      
 
-    h2 #{deathTitle}
-    p #{deathDesc}
-    h4 #{deathType}
+      h2 #{deathTitle}
+      p #{deathDesc}
+      h4 #{deathType}
 
-    form(method='POST' action='/randomDeath')
-      .form-group
-      label(for='deathGenerator') How do I die today?
-      button.btn.btn-danger Perish
+      form(method='POST' action='/randomDeath')
+        .form-group
+        label(for='deathGenerator') How do I die today?
+        button.btn.btn-danger Perish
+
+      p If you want to add something unique
+        a(href= "/add").btn.btn-danger Add Death

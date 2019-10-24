@@ -280,7 +280,7 @@ app.post('/randomDeath', (req,res) => {
     //pass death to displayDeath
     // res.render("account")
     
-    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType});
+    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType,deathHist:deathHist});
   });
 });
 

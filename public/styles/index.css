@@ -43,10 +43,10 @@ body {
  }
 
 .container-left{
-
   background-image: url("/images/Ruled_Paper_left.jpg");
   background-size: cover;
   /* background-repeat: no-repeat; */
+  padding: 3rem;
   border-radius: 20px 5px 5px 20px;
   background-position: right;
   border-left: 3px solid brown;
@@ -86,4 +86,7 @@ body {
 .p.image{
   position: left;
   width: 45%;
+}
+.button{
+  padding: 3rem;
 }
