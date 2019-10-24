@@ -171,7 +171,7 @@ app.get("/add", async (req, res) => {
 app.post('/addDeath', (req, res) => {
   models.Death.create({
       title: req.body.title,
-      dead: req.body.dead,
+      description: req.body.description,
       type: req.body.type 
   }).then(function(death) {
       console.log('Death saved!')
@@ -220,8 +220,6 @@ console.log("this is our account page! ###########################")
     console.log(req.session.user)
     res.render("account", {data: req.session.user.username});
 });
-
-
 
 
 app.post('/registerUser', (req,res) => {
