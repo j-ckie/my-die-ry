@@ -241,6 +241,7 @@ app.post('/registerUser', (req,res) => {
         }
     })
 })
+
 // THIS IS mY swamp IM TESTING AAAAH
 app.post('/randomDeath', (req,res) => {
   let data = {};
@@ -258,15 +259,45 @@ app.post('/randomDeath', (req,res) => {
     var title = table.get("title");
     var desc = table.get("description");
     var type = table.get("type");
-    
+    var id = table.get("id");
+    //get current user history data
+      // append table.get("id") to history data value
+      // update user table with new history value
+
+      models.User.findOne({ 
+        where: {
+          email: req.session.user.email
+        }
+      })
+      .then((user) =>{
+        if(user){
+
+          
+
+          var str = "15,12,44,53"; // example test "deathHistory" until column is there
+
+          //var str = user.get("deathHistory"); //USE THIS DUMDUM
+          var history = str.split(",").map(Number);
+
+          //[15,12,44,32] << push to end new number
+          history.push(id); //push current ID to end of history
+          console.log("history = ", history); //log the new ID on the end
+          //[15,12,44,32,5] //new 'deathHistory' to add back to db
+
+          //when looking up history, pull array and then search deathTable for those IDs
+          user.update({
+            //deathHistory: history //<< update history with NEW version of history
+          })
+          
+        }
+      })
+
 
     //pass death to displayDeath
     res.render("account", {data: req.session.user.username,deathTitle: title, deathDesc: desc, deathType: type});
     
   });
   
-
- 
 
   
 })
