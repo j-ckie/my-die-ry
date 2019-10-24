@@ -78,6 +78,9 @@ const User = devSequelize.define('user', {
   },
   password: {
     type: Sequelize.STRING
+  },
+  history: {
+    type: Sequelize.STRING
   }
 }, {
   // options
@@ -98,12 +101,6 @@ const Death = devSequelize.define('death', {
   tableName: 'Deaths'
 });
 
-function randomDeath() {
-
-}
-
-
-// randomDeath();
 
 
 //   Death.findOne({ order: 'random()' }).then((encounter) => {
@@ -254,50 +251,53 @@ app.post('/randomDeath', (req,res) => {
     order: Sequelize.literal('rand()'),
     //limit: 1, //NO LIMITS ON THE ONE
   }).then(table => {
-    
-    //console.log("Title is:", table.get("title"));
+  //console.log("Title is:", table.get("title"));
     var title = table.get("title");
     var desc = table.get("description");
     var type = table.get("type");
     var id = table.get("id");
-    //get current user history data
+    //var hist = table.get("history");  // get current user history data??
       // append table.get("id") to history data value
       // update user table with new history value
+    User.findOne({ 
+      where: {
+        email: req.session.user.email
+      }
+      //attributes: ['id', ['history']] 
+      //https://sequelize.org/master/manual/models-usage.html OH okay ty
+    })
+    .then((user) =>{
+      if(user){
+        //var str = "15,12,44,53"; // example test "deathHistory" until column is there 
+        var str = user.get("history"); //str should be "history"
+        console.log("history is:", str); //why is history your email address why do you need email in the first place...??
 
-      models.User.findOne({ 
-        where: {
-          email: req.session.user.email
-        }
-      })
-      .then((user) =>{
-        if(user){
-          var userDeath = [];
-          var str = "15,12,44,53"; // example test "deathHistory" until column is there
-
-          //var str = user.get("deathHistory"); //USE THIS DUMDUM
-          var history = str.split(",").map(Number);
-
-          //[15,12,44,32] << push to end new number
-          history.push(id); //push current ID to end of history
-          console.log("history = ", history); //log the new ID on the end
-          //[15,12,44,32,5] //new 'deathHistory' to add back to db
-
-          //when looking up history, pull array and then search deathTable for those IDs
-          user.update({
-            //deathHistory: history //<< update history with NEW version of history
-          })
+        if (str == undefined) { 
+          //var history = [];
+          var history = id; 
           
+        } else {
+          var history = str.split(",").map(Number); //
+          history.push(id);
+          console.log("str is not NaN");  //this went through
         }
-      })
 
-
+      }
+        //[15,12,44,32] << push to end new number
+         //push current ID to end of history
+        //console.log("history = ", history); //log the new ID on the end
+        //[15,12,44,32,5] //new 'deathHistory' to add back to db
+        //when looking up history, pull array and then search deathTable for those IDs
+        //user.update({
+          
+          //deathHistory: history //<< update history with NEW version of history
+        //});
+      } 
+    );
     //pass death to displayDeath
     res.render("account", {data: req.session.user.username,deathTitle: title, deathDesc: desc, deathType: type});
-    
   });
-  
-  
-})
+});
 
 app.listen(port, ()=> {
     console.log(`port ${port} is running`);
