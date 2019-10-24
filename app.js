@@ -98,20 +98,12 @@ const Death = devSequelize.define('death', {
   tableName: 'Deaths'
 });
 
-// function randomDeath() {
+function randomDeath() {
 
-// solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
-
-Death.findAll({ 
-  order: Sequelize.literal('rand()'),
-  limit: 1
-  // where: {title: 'Deaths'},
-  // attributes: ['id', ['title', 'description']]
-}).then(encounters => {
-  console.log('########### THING HERE', encounters);
-});
+}
 
 
+// randomDeath();
 
 
 //   Death.findOne({ order: 'random()' }).then((encounter) => {
@@ -249,7 +241,35 @@ app.post('/registerUser', (req,res) => {
         }
     })
 })
+// THIS IS mY swamp IM TESTING AAAAH
+app.post('/randomDeath', (req,res) => {
+  let data = {};
+  let deathTitle = {};
+  let deathDesc = {};
+  let deathType = {};
 
+  // solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
+  Death.findOne({ // why the fuck is it findOne and not findAll??
+    order: Sequelize.literal('rand()'),
+    //limit: 1, //NO LIMITS ON THE ONE
+  }).then(table => {
+    
+    //console.log("Title is:", table.get("title"));
+    var title = table.get("title");
+    var desc = table.get("description");
+    var type = table.get("type");
+    
+
+    //pass death to displayDeath
+    res.render("account", {data: req.session.user.username,deathTitle: title, deathDesc: desc, deathType: type});
+    
+  });
+  
+
+ 
+
+  
+})
 
 
 
