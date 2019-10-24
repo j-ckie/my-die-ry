@@ -6,7 +6,7 @@ module.exports = {
       'Users',
       'history',
       {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       }
     )
   },
@@ -16,7 +16,7 @@ module.exports = {
       'Users',
       'history',
       {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       }
     )
   },
