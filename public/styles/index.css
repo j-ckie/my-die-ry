@@ -43,6 +43,7 @@ body {
  }
 
 .container-left{
+
   background-image: url("/images/Ruled_Paper_left.jpg");
   background-size: cover;
   /* background-repeat: no-repeat; */
@@ -63,6 +64,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px 20px 20px 5px ;
+
   border-right: 3px solid brown ;
   padding-left: 8%;
   padding-right: 5%;
@@ -74,6 +76,7 @@ body {
 .input{
   width: 55px important!;
   background-color:transparent;
+  padding: 3rem;
 }
     
 
