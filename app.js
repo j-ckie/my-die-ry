@@ -117,24 +117,6 @@ const Histories = devSequelize.define('Histories', {
 
 
 
-//   Death.findOne({ order: 'random()' }).then((encounter) => {
-//     console.log('#######THIS IS A THING', encounter);
-// });
-  // devSequelize.sync();
-  // Death.findAndCountAll({
-  //   where: {
-  //     id: {[op.gte]: 1} //OP means OPeration GTE is Greater Than Equal to. see https://sequelize.org/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database for explanation
-  //   }
-  // }).then(result => {
-  //   count = result.count; // use this to determine table size
-  //   var randomDeathID = Math.floor(Math.random() * count) + 1;
-  //   console.log("##########LOOK HERE!!!! randomdeathid:",randomDeathID);
-  //   // notes: do another find thing with the randomDeathID to spit out the death and death title
-  // });
-// }
-
-
-
 
 app.set ("view engine", "pug");
 app.use(express.static("public"));
@@ -171,7 +153,7 @@ app.get("/add", async (req, res) => {
 app.post('/addDeath', (req, res) => {
   models.Death.create({
       title: req.body.title,
-      dead: req.body.dead,
+      description: req.body.description,
       type: req.body.type 
   }).then(function(death) {
       console.log('Death saved!')
@@ -220,8 +202,6 @@ console.log("this is our account page! ###########################")
     console.log(req.session.user)
     res.render("account", {data: req.session.user.username});
 });
-
-
 
 
 app.post('/registerUser', (req,res) => {
@@ -282,7 +262,7 @@ app.post('/randomDeath', (req,res) => {
     //pass death to displayDeath
     // res.render("account")
     
-    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType, deathHist: deathHist});
+    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType,deathHist:deathHist});
   });
 });
 

@@ -8,10 +8,10 @@ block content
     form(method="POST" action="/addDeath")
       .form-group
         label(for='title') Title (of Death)
-        input#name.form-control(name="name" type='text' placeholder='Enter a gory death title')
+        input#name.form-control(name="title" type='text' placeholder='Enter a gory death title')
       .form-group
-        label(for='dead') Death Entry
-        input#dead.form-control(name="dead" type='text' placeholder='Describe the DEATH')
+        label(for='description') Death Entry
+        input#dead.form-control(name="description" type='text' placeholder='Describe the DEATH')
         small.form-text.form-muted Make it graphic! 
       .form-group
         label(for="type") Manner of Death
