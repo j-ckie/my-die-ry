@@ -22,7 +22,7 @@ const devSequelize = new Sequelize(json.development.database, json.development.u
     max: 1,
     min: 0,
     acquire: 15000,
-    idle: 5000 // will close a connection if idle for 2 seconds ??
+    idle: 5000 // will close a connection if idle for 5 seconds ??
   }
 });
 
