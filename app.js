@@ -3,7 +3,7 @@ const port = process.env.PORT || 8080;
 const cors= require('cors');
 const bodyParser = require('body-parser');
 const session = require("express-session");
-const Sequelize = require('sequelize'); // ok so you imported 'sequelize'. now you gotta tell it how to connect to the elephant thing ok
+const Sequelize = require('sequelize'); 
 const bcrypt = require('bcrypt');
 const models = require('./models');
 const app = express();
@@ -125,7 +125,6 @@ function randomDeath() {
 
 
 
-
 app.set ("view engine", "pug");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -144,7 +143,6 @@ app.get("/login", (req, res)=>{
 app.get("/add", async (req, res) => {
   let keys = []
   let data = {};
-
   //Retrieve all deaths from database
   let deathData = await models.Death.findAll();
   //Loop over returned data and put only types into keys
@@ -167,14 +165,14 @@ app.post('/addDeath', (req, res) => {
   }).then(function(death) {
       console.log('Death saved!')
   })
-  res.redirect('/login') //dashboard?
+  res.redirect('/account');
 })
 
 app.use(
     session({
         secret:"Somehting secret",
         resave: false,
-        saveUnitialized: true
+        saveUninitialized: true
     })
 );
 
@@ -197,12 +195,11 @@ app.post('/loginUser', async(req,res)=>{
             req.session.user = dbUser;
             res.redirect("/account");
         });
-
         
     }catch(e){
         res.send(e);
     }
- 
+
 });
 app.get ("/account", (req,res)=>{
 let data = {};
@@ -270,8 +267,6 @@ app.post('/randomDeath', (req,res) => {
 
   
 })
-
-
 
 app.listen(port, ()=> {
     console.log(`port ${port} is running`);
