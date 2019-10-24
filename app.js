@@ -101,6 +101,20 @@ const Death = devSequelize.define('death', {
   tableName: 'Deaths'
 });
 
+const Histories = devSequelize.define('Histories', { 
+  userId: {
+    type: Sequelize.STRING,
+  },
+  deathId: {
+    type: Sequelize.STRING,
+  },
+  dateDied: {
+    type: Sequelize.STRING
+  }
+}, {
+  tableName: 'Histories'
+});
+
 
 
 //   Death.findOne({ order: 'random()' }).then((encounter) => {
@@ -242,57 +256,33 @@ app.post('/randomDeath', (req,res) => {
   let deathTitle = {};
   let deathDesc = {};
   let deathType = {};
+  let deathHist = {};
 
   // solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
-  Death.findOne({ // why the fuck is it findOne and not findAll??
+  Death.findOne({ 
     order: Sequelize.literal('rand()'),
     //limit: 1, //NO LIMITS ON THE ONE
   }).then(table => {
   //console.log("Title is:", table.get("title"));
-    var title = table.get("title");
-    var desc = table.get("description");
-    var type = table.get("type");
-    var id = table.get("id");
-    //var hist = table.get("history");  // get current user history data??
-      // append table.get("id") to history data value
-      // update user table with new history value
-    User.findOne({ 
-      where: {
-        email: req.session.user.email
-      }
-      //attributes: ['id', ['history']] 
-      //https://sequelize.org/master/manual/models-usage.html OH okay ty
-    })
-    .then((user) =>{
-      if(user){
-        //var str = "15,12,44,53"; // example test "deathHistory" until column is there 
-        var str = user.get("history"); //str should be "history"
-        console.log("history is:", str); //why is history your email address why do you need email in the first place...??
+    var deathTitle = table.get("title");
+    var deathDesc = table.get("description");
+    var deathType = table.get("type");
+    var deathID = table.get("id");
+   
+    Histories.create({ // i think this creates a new query (and new connection??)
+      userId: req.session.user.id,
+      deathId: deathID
+      //dateDied: Date.now() // this is causing it to break for some reason
+    }).then((death) => {
+      console.log('Death saved!'); // :hellmo: it works
+      death.save(); // !!!!!!
+      
+  });
 
-        if (str == undefined) { 
-          //var history = [];
-          var history = id; 
-          
-        } else {
-          var history = str.split(",").map(Number); //
-          history.push(id);
-          console.log("str is not NaN");  //this went through
-        }
-
-      }
-        //[15,12,44,32] << push to end new number
-         //push current ID to end of history
-        //console.log("history = ", history); //log the new ID on the end
-        //[15,12,44,32,5] //new 'deathHistory' to add back to db
-        //when looking up history, pull array and then search deathTable for those IDs
-        //user.update({
-          
-          //deathHistory: history //<< update history with NEW version of history
-        //});
-      } 
-    );
     //pass death to displayDeath
-    res.render("account", {data: req.session.user.username,deathTitle: title, deathDesc: desc, deathType: type});
+    // res.render("account")
+    
+    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType});
   });
 });
 
