@@ -1,9 +1,10 @@
 extend layout
 
 block content
- 
   include includes/containers
-   h1 HELLO  #{data} 
+      p
+      h1 HELLO  #{data} 
+      button.btn.btn-danger(type='submit') Add DEATH
 
    h2 #{deathTitle}
    p #{deathDesc}
