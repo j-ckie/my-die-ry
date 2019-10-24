@@ -78,6 +78,9 @@ const User = devSequelize.define('user', {
   },
   password: {
     type: Sequelize.STRING
+  },
+  history: {
+    type: Sequelize.STRING
   }
 }, {
   // options
@@ -98,12 +101,20 @@ const Death = devSequelize.define('death', {
   tableName: 'Deaths'
 });
 
-function randomDeath() {
+const Histories = devSequelize.define('Histories', { 
+  userId: {
+    type: Sequelize.STRING,
+  },
+  deathId: {
+    type: Sequelize.STRING,
+  },
+  dateDied: {
+    type: Sequelize.STRING
+  }
+}, {
+  tableName: 'Histories'
+});
 
-}
-
-
-// randomDeath();
 
 
 //   Death.findOne({ order: 'random()' }).then((encounter) => {
@@ -238,35 +249,42 @@ app.post('/registerUser', (req,res) => {
         }
     })
 })
+
 // THIS IS mY swamp IM TESTING AAAAH
 app.post('/randomDeath', (req,res) => {
   let data = {};
   let deathTitle = {};
   let deathDesc = {};
   let deathType = {};
+  let deathHist = {};
 
   // solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
-  Death.findOne({ // why the fuck is it findOne and not findAll??
+  Death.findOne({ 
     order: Sequelize.literal('rand()'),
     //limit: 1, //NO LIMITS ON THE ONE
   }).then(table => {
-    
-    //console.log("Title is:", table.get("title"));
-    var title = table.get("title");
-    var desc = table.get("description");
-    var type = table.get("type");
-    
+  //console.log("Title is:", table.get("title"));
+    var deathTitle = table.get("title");
+    var deathDesc = table.get("description");
+    var deathType = table.get("type");
+    var deathID = table.get("id");
+   
+    Histories.create({ // i think this creates a new query (and new connection??)
+      userId: req.session.user.id,
+      deathId: deathID
+      //dateDied: Date.now() // this is causing it to break for some reason
+    }).then((death) => {
+      console.log('Death saved!'); // :hellmo: it works
+      death.save(); // !!!!!!
+      
+  });
 
     //pass death to displayDeath
-    res.render("account", {data: req.session.user.username,deathTitle: title, deathDesc: desc, deathType: type});
+    // res.render("account")
     
+    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType});
   });
-  
-
- 
-
-  
-})
+});
 
 app.listen(port, ()=> {
     console.log(`port ${port} is running`);
