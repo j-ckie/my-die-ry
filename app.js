@@ -9,8 +9,8 @@ const models = require('./models');
 const app = express();
 const json = require('./config/config.json');
 
-const op = Sequelize.Op;
-var count = 0;
+// const op = Sequelize.Op;
+// var count = 0;
 
 const SALT_ROUNDS = 10;
 
@@ -22,7 +22,7 @@ const devSequelize = new Sequelize(json.development.database, json.development.u
     max: 1,
     min: 0,
     acquire: 15000,
-    idle: 5000 // will close a connection if idle for 2 seconds ??
+    idle: 5000 // will close a connection if idle for 5 seconds ??
   }
 });
 
@@ -78,6 +78,9 @@ const User = devSequelize.define('user', {
   },
   password: {
     type: Sequelize.STRING
+  },
+  history: {
+    type: Sequelize.STRING
   }
 }, {
   // options
@@ -98,19 +101,40 @@ const Death = devSequelize.define('death', {
   tableName: 'Deaths'
 });
 
-devSequelize.sync();
-
-Death.findAndCountAll({
-  where: {
-    id: {[op.gte]: 1} //OP means OPeration GTE is Greater Than Equal to. see https://sequelize.org/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database for explanation
+const Histories = devSequelize.define('Histories', { 
+  userId: {
+    type: Sequelize.STRING,
+  },
+  deathId: {
+    type: Sequelize.STRING,
+  },
+  dateDied: {
+    type: Sequelize.STRING
   }
-}).then(result => {
-  count = result.count; // use this to determine table size
-  var randomDeathID = Math.floor(Math.random() * count) + 1;
-  console.log("##########LOOK HERE!!!! randomdeathid:",randomDeathID);
-
-  // notes: do another find thing with the randomDeathID to spit out the death and death title
+}, {
+  tableName: 'Histories'
 });
+
+
+
+//   Death.findOne({ order: 'random()' }).then((encounter) => {
+//     console.log('#######THIS IS A THING', encounter);
+// });
+  // devSequelize.sync();
+  // Death.findAndCountAll({
+  //   where: {
+  //     id: {[op.gte]: 1} //OP means OPeration GTE is Greater Than Equal to. see https://sequelize.org/v5/manual/models-usage.html#-code-find--code----search-for-one-specific-element-in-the-database for explanation
+  //   }
+  // }).then(result => {
+  //   count = result.count; // use this to determine table size
+  //   var randomDeathID = Math.floor(Math.random() * count) + 1;
+  //   console.log("##########LOOK HERE!!!! randomdeathid:",randomDeathID);
+  //   // notes: do another find thing with the randomDeathID to spit out the death and death title
+  // });
+// }
+
+
+
 
 app.set ("view engine", "pug");
 app.use(express.static("public"));
@@ -226,7 +250,43 @@ app.post('/registerUser', (req,res) => {
     })
 })
 
+// THIS IS mY swamp IM TESTING AAAAH
+app.post('/randomDeath', (req,res) => {
+  let data = {};
+  let deathTitle = {};
+  let deathDesc = {};
+  let deathType = {};
+  let deathHist = {};
+
+  // solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
+  Death.findOne({ 
+    order: Sequelize.literal('rand()'),
+    //limit: 1, //NO LIMITS ON THE ONE
+  }).then(table => {
+  //console.log("Title is:", table.get("title"));
+    var deathTitle = table.get("title");
+    var deathDesc = table.get("description");
+    var deathType = table.get("type");
+    var deathID = table.get("id");
+   
+    Histories.create({ // i think this creates a new query (and new connection??)
+      userId: req.session.user.id,
+      deathId: deathID
+      //dateDied: Date.now() // this is causing it to break for some reason
+    }).then((death) => {
+      console.log('Death saved!'); // :hellmo: it works
+      death.save(); // !!!!!!
+      
+  });
+
+    //pass death to displayDeath
+    // res.render("account")
+    
+    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType});
+  });
+});
 
 app.listen(port, ()=> {
     console.log(`port ${port} is running`);
 });
+
