@@ -30,6 +30,7 @@ body {
  }
 
 .container-left{
+  padding: 3rem;
   border-radius: 20px 5px 5px 20px;
 }
 
@@ -41,6 +42,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px 20px 20px 5px ;
+  padding: 3rem;
 }
 
     
