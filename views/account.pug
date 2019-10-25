@@ -2,15 +2,16 @@ extend layout
 
 block content
   include includes/containers
-    p
     h1 HELLO  #{data} 
-    button.btn.btn-danger(type='submit') Add DEATH
-
+    p
     h2 #{deathTitle}
     p #{deathDesc}
     h4 #{deathType}
 
     form(method='POST' action='/randomDeath')
       .form-group
-      label(for='deathGenerator') How do I die today?
-      button.btn.btn-danger Perish
+      h3.label(for='deathGenerator') How will I die today?
+      button.btn.btn-danger PERISH
+    hr
+    h4.text-center Add a NEW way to DIE
+    a(href="/add").btn.btn-danger Add DEATH
