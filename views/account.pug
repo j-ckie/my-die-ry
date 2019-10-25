@@ -2,22 +2,29 @@ extend layout
 
 block content
   include includes/container-left
-    h2 #{deathHist}
+    .death-list-container
+      #death-list-title
+        h2 Last 5 Deaths:
+      #death-list
+        h4 #{deathHist0}
+        h4 #{deathHist1}
+        h4 #{deathHist2}
+        h4 #{deathHist3}
+        h4 #{deathHist4}
   include includes/container-right
-    h1 HELLO  #{data} 
-    
 
-    h2 #{deathTitle}
-    p #{deathDesc}
-    h4 #{deathType}
+      
+      h1 HELLO  #{data} 
+      
+      h2 #{deathTitle}
+      p #{deathDesc}
+      h4 #{deathType}
 
-    form(method='POST' action='/randomDeath')
-      .form-group
-      label(for='deathGenerator')
-        h3 How will I die today??
-      button.btn.btn-danger Perish
-
-    h3 If you want to add something unique press=>
-      a(href= "/add").btn.btn-danger Add Death
-    include includes/footer
-  
+      form(method='POST' action='/randomDeath')
+        .form-group
+        .perish-form
+          label(for='deathGenerator') How will I die today??
+          button.btn.btn-danger Perish
+      .add-death
+        h6 If you want to add something unique 
+        a(href= "/add").btn.btn-danger Add Death
