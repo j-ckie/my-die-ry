@@ -9,6 +9,15 @@ body {
   
 
 }
+
+h4 {
+  margin: 1rem;
+}
+
+.death-list-container {
+  display: flex;
+  flex-flow: column;
+}
 .container{
     display: flex;
     flex-flow: column;
@@ -43,10 +52,10 @@ body {
  }
 
 .container-left{
-
   background-image: url("/images/Ruled_Paper_left.jpg");
   background-size: cover;
   /* background-repeat: no-repeat; */
+  padding: 3rem;
   border-radius: 20px 5px 5px 20px;
   background-position: right;
   border-left: 3px solid brown;
@@ -86,4 +95,34 @@ body {
 .p.image{
   position: left;
   width: 45%;
+}
+button{
+  margin: .3rem;
+}
+
+.perish-form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.perish-form label {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.add-death {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.diery-logo {
+  width: 90%;
+}
+
+.landing-login {
+  text-align: center;
 }
