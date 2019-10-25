@@ -1,11 +1,11 @@
 extend layout
 
 block content
-    include includes/containers
-        block left
-            p.image
-                img(src='/images/cute_death.jpg' alt='Guess who?' )
-        block right
+    include includes/container-left
+        p.image
+            img(src='/images/cute-reaper.png' alt='Cute reaper' )
+
+    include includes/container-right
             h1 Log in and have fun
             form(method='POST' action='/loginUser')
                 .form-group

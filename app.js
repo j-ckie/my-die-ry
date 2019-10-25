@@ -170,9 +170,11 @@ app.use(
 app.post('/loginUser', async(req,res)=>{
     try{
         let email = req.body.email
+        let password = req.body.password
         let dbUser = await models.User.findOne({
             where: { 
                 email: email
+            
             }
         });
         console.log(dbUser)
@@ -181,8 +183,9 @@ app.post('/loginUser', async(req,res)=>{
         if(!dbUser)throw new Error('Login failed');
 
         bcrypt.compare(req.body.password, dbUser.password,(err, same)=>{
-            if(err) throw err;
-            if(!same) throw new Error('Incorrect password');
+            if(err)throw err;
+            if(!same)throw new Error('Incorrect password') 
+            res.redirect("/login");
             req.session.user = dbUser;
             res.redirect("/account");
         });
