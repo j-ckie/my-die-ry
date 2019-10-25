@@ -116,8 +116,6 @@ const Histories = devSequelize.define('Histories', {
 });
 
 
-
-
 app.set ("view engine", "pug");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
