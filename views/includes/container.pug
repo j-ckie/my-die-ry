@@ -1,13 +1,14 @@
 .container
-  p
-    img(src='/images/my-diery-logo.png' alt='My die-ry' )
+  
+  img(src='/images/my-diery-logo.png' alt='My die-ry' class='diery-logo')
     
 
   h3 New here? Please, 
      a(href= "/register").btn.btn-outline-dark Register
 
-  h3 If you already have a die-ry with us, please 
-     a(href= "/login").btn.btn-outline-dark Log in
+  .landing-login
+      h3 If you already have a die-ry with us, please 
+         a(href= "/login").btn.btn-outline-dark Log in
    
   footer.row
       .col.text-center &copy; BLB
