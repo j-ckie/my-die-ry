@@ -236,33 +236,104 @@ app.post('/randomDeath', (req,res) => {
   let deathTitle = {};
   let deathDesc = {};
   let deathType = {};
-  let deathHist = {};
+  //let deathHist = {};
 
   // solution from https://stackoverflow.com/questions/42146200/selecting-a-random-record-from-sequelize-findall
-  Death.findOne({ 
+  let deathFind = Death.findOne({ 
     order: Sequelize.literal('rand()'),
-    //limit: 1, //NO LIMITS ON THE ONE
   }).then(table => {
-  //console.log("Title is:", table.get("title"));
+
     var deathTitle = table.get("title");
     var deathDesc = table.get("description");
     var deathType = table.get("type");
     var deathID = table.get("id");
    
-    Histories.create({ // i think this creates a new query (and new connection??)
+    //adds death scenario to histories table 
+    Histories.create({ 
       userId: req.session.user.id,
       deathId: deathID
       //dateDied: Date.now() // this is causing it to break for some reason
     }).then((death) => {
-      console.log('Death saved!'); // :hellmo: it works
-      death.save(); // !!!!!!
+      console.log('Death saved!'); // :hellmo: it worksnote
+      death.save(); 
       
+  })
+  
+    Histories.findAll({ 
+    userId: req.session.user.id,
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    limit: 5
+  }).then(table => {
+    var deathHist0 = table[0].get("deathId");
+    var deathHist1 = table[1].get("deathId");
+    var deathHist2 = table[2].get("deathId");
+    var deathHist3 = table[3].get("deathId");
+    var deathHist4 = table[4].get("deathId");
+
+    let promDeath0 = Death.findOne({
+      where: {
+        id: deathHist0
+        }
+    }).then (data0 => {
+      return data0.get("title");
+    });
+
+    let promDeath1 = Death.findOne({
+      where: {
+        id: deathHist1
+        }
+    }).then (data1 => {
+      return data1.get("title");
+    });
+
+    let promDeath2 = Death.findOne({
+      where: {
+        id: deathHist2
+        }
+    }).then (data2 => {
+      return data2.get("title");
+    });
+
+    let promDeath3 = Death.findOne({
+      where: {
+      id: deathHist3
+      }
+    }).then (data3 => {
+      return data3.get("title");
+    });
+
+    let promDeath4 = Death.findOne({
+      where: {
+        id: deathHist4
+        }
+    }).then (data4 => {
+      return data4.get("title");
+    });
+
+    let all = Promise.all([promDeath0, promDeath1, promDeath2, promDeath3, promDeath4]);
+
+    all.then(dataAll => {
+      var Title1 = dataAll
+      let deathHist0 = Title1[0]
+      let deathHist1 = Title1[1]
+      let deathHist2 = Title1[2]
+      let deathHist3 = Title1[3]
+      let deathHist4 = Title1[4]
+
+
+      res.render("account", { data: req.session.user.username, deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType, deathHist0:deathHist0, deathHist1:deathHist1, deathHist2:deathHist2, deathHist3:deathHist3, deathHist4:deathHist4 });
+    });
+
+
   });
 
-    //pass death to displayDeath
-    // res.render("account")
+    // pass death to displayDeath
+    // need to pull death ID from death table and render titles in deathHist
     
-    res.render("account", {data: req.session.user.username,deathTitle: deathTitle, deathDesc: deathDesc, deathType: deathType,deathHist:deathHist});
+    
+    
   });
 });
 

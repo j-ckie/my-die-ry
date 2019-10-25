@@ -2,12 +2,19 @@ extend layout
 
 block content
   include includes/container-left
-    h2 #{deathHist}
+    .death-list-container
+      #death-list-title
+        h2 Last 5 Deaths:
+      #death-list
+        h4 #{deathHist0}
+        h4 #{deathHist1}
+        h4 #{deathHist2}
+        h4 #{deathHist3}
+        h4 #{deathHist4}
   include includes/container-right
       p
       h1 HELLO  #{data} 
       
-
       h2 #{deathTitle}
       p #{deathDesc}
       h4 #{deathType}

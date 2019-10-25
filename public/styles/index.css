@@ -9,6 +9,15 @@ body {
   
 
 }
+
+h4 {
+  margin: 2rem;
+}
+
+.death-list-container {
+  display: flex;
+  flex-flow: column;
+}
 .container{
     display: flex;
     flex-flow: column;
