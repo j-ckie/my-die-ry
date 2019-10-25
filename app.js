@@ -200,7 +200,76 @@ console.log("this is our account page! ###########################")
 // console.log(req.session)
     // data.users = await models.User.findUsername();
     console.log(req.session.user)
-    res.render("account", {data: req.session.user.username});
+    Histories.findAll({ 
+      userId: req.session.user.id,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      limit: 5
+    }).then(table => {
+      var deathHist0 = table[0].get("deathId");
+      var deathHist1 = table[1].get("deathId");
+      var deathHist2 = table[2].get("deathId");
+      var deathHist3 = table[3].get("deathId");
+      var deathHist4 = table[4].get("deathId");
+  
+      let promDeath0 = Death.findOne({
+        where: {
+          id: deathHist0
+          }
+      }).then (data0 => {
+        return data0.get("title");
+      });
+  
+      let promDeath1 = Death.findOne({
+        where: {
+          id: deathHist1
+          }
+      }).then (data1 => {
+        return data1.get("title");
+      });
+  
+      let promDeath2 = Death.findOne({
+        where: {
+          id: deathHist2
+          }
+      }).then (data2 => {
+        return data2.get("title");
+      });
+  
+      let promDeath3 = Death.findOne({
+        where: {
+        id: deathHist3
+        }
+      }).then (data3 => {
+        return data3.get("title");
+      });
+  
+      let promDeath4 = Death.findOne({
+        where: {
+          id: deathHist4
+          }
+      }).then (data4 => {
+        return data4.get("title");
+      });
+  
+      let all = Promise.all([promDeath0, promDeath1, promDeath2, promDeath3, promDeath4]);
+  
+      all.then(dataAll => {
+        var Title1 = dataAll
+        let deathHist0 = Title1[0]
+        let deathHist1 = Title1[1]
+        let deathHist2 = Title1[2]
+        let deathHist3 = Title1[3]
+        let deathHist4 = Title1[4]
+  
+  
+        res.render("account", { data: req.session.user.username, deathHist0:deathHist0, deathHist1:deathHist1, deathHist2:deathHist2, deathHist3:deathHist3, deathHist4:deathHist4 });
+      });
+  
+      
+    });
+    //res.render("account", { data: req.session.user.username});
 });
 
 
